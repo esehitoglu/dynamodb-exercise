@@ -44,12 +44,12 @@ exports.single = async(params)=>{
     var items = {
         TableName:table,
         Key:{
-            "id": params.id,
+            "productId": params.productId,
         }
     };
     
     try{
-        await docClient.get(items).promise()
+        const data = await docClient.get(items).promise()
         return{
             status:true,
             message:data
@@ -63,7 +63,6 @@ exports.single = async(params)=>{
 }
 
 exports.fetchAll = async(params)=>{
-    console.log('geldik')
     var items = {
         TableName: table
     };
@@ -86,11 +85,11 @@ exports.update = async(params)=>{
     var items = {
         TableName:table,
         Key:{
-            "id": params.id,
+            "productId": params.productId,
         },
-        UpdateExpression: "set categoryName = :categoryName",
+        UpdateExpression: "set stock = :stock",
         ExpressionAttributeValues:{
-            ":categoryName":params.categoryName,
+            ":stock":params.stock,
         },
         ReturnValues:"UPDATED_NEW"
     }
@@ -109,11 +108,10 @@ exports.update = async(params)=>{
 }
 
 exports.delete = async(params)=>{
-    console.log('geldik')
     var items = {
         TableName:table,
         Key:{
-            "id": params.id,
+            "productId": params.productId,
         }
         
     };
